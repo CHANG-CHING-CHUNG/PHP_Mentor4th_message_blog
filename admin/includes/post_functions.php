@@ -160,9 +160,8 @@ function updatePost($request_values) {
 
   if (mysqli_query($conn, $query)) {
     if (isset($topic_id)) {
-      $inserted_post_id = mysqli_insert_id($conn);
-      // $sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
-      $sql = "INSERT INTO John_blog_post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
+      // $sql = "UPDATE post_topic SET topic_id = $topic_id WHERE post_id = $post_id";
+      $sql = "UPDATE John_blog_post_topic SET topic_id = $topic_id WHERE post_id = $post_id";
       mysqli_query($conn, $sql);
       header("location: posts.php?page=admin");
       exit(0);

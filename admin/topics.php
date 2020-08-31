@@ -16,7 +16,7 @@
 		
 				<div class="action">
 					<h1 class="page-title">新增/編輯 類別</h1>
-					<form method="post" action="<?php echo BASE_URL . 'admin/topics.php'; ?>" >
+					<form method="post" action="<?php echo BASE_URL . 'admin/topics.php?page=admin'; ?>" >
 						<?php if ($isEditingTopic === true): ?>
 							<input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>">
 						<?php endif ?>
@@ -47,12 +47,12 @@
 									<td><?php echo $topic['name']; ?></td>
 									<td>
 										<a class="fa fa-pencil btn edit"
-											href="topics.php?edit-topic=<?php echo $topic['id'] ?>">
+											href="topics.php?page=admin&edit-topic=<?php echo $topic['id'] ?>">
 										</a>
 									</td>
 									<td>
 										<a class="fa fa-trash btn delete"								
-											href="topics.php?delete-topic=<?php echo $topic['id'] ?>">
+											href="topics.php?page=admin&delete-topic=<?php echo $topic['id'] ?>">
 										</a>
 									</td>
 								</tr>

@@ -94,6 +94,13 @@ function getTopicNameById($id) {
   return $topic['name'];
 }
 
+function htmlspecial_array(&$variable) {
+  foreach ($variable as &$value) {
+      if (!is_array($value)) { $value = htmlspecialchars($value); }
+      else { htmlspecial_array($value); }
+  }
+}
+
 function getPost($id) {
   global $conn;
   $post_id = $_GET['id'];
@@ -106,6 +113,7 @@ function getPost($id) {
   if ($post) {
     $post['topic'] = getPostTopic($post['id']);
   }
+  htmlspecial_array($post);
   return $post;
 }
 

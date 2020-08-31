@@ -4,7 +4,7 @@ $topic_id = 0;
 $isEditingTopic = false;
 $topic_name = "";
 
-if (!empty($_POST['create_topic'])) {
+if (isset($_POST['create_topic'])) {
   createTopic($_POST);
 }
 
@@ -14,7 +14,7 @@ if (!empty($_GET['edit-topic'])) {
   editTopic($topic_id);
 }
 
-if (!empty($_POST['update_topic'])) {
+if (isset($_POST['update_topic'])) {
   updateTopic($_POST);
 }
 
@@ -50,7 +50,7 @@ function createTopic($request_values) {
 
   // $query = "INSERT INTO topics (name) VALUES('$topic_name')";
   $query = "INSERT INTO John_blog_topics (name) VALUES('$topic_name')";
-  myqsli_query($conn, $query);
+  mysqli_query($conn, $query);
   $_SESSION['message'] = "類別創建成功";
   header('location: topics.php');
   exit(0);
@@ -59,9 +59,9 @@ function createTopic($request_values) {
 function editTopic($topic_id) {
   global $conn, $topic_name, $isEditingTopic, $topic_id;
 
-  // $sql = "SELECT * FROM topics WHERE id =$topics_id LIMIT 1";
-  $sql = "SELECT * FROM John_blog_topics WHERE id =$topics_id LIMIT 1";
-  $RESULT = mysqli_query($conn, $sql);
+  // $sql = "SELECT * FROM topics WHERE id =$topic_id LIMIT 1";
+  $sql = "SELECT * FROM John_blog_topics WHERE id =$topic_id LIMIT 1";
+  $result = mysqli_query($conn, $sql);
   $topic = mysqli_fetch_assoc($result);
   $topic_name = $topic['name'];
 }

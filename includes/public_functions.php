@@ -103,10 +103,13 @@ function htmlspecial_array(&$variable) {
 
 function getPost($id) {
   global $conn;
-  $post_id = $_GET['id'];
+  $post_id = (int) $_GET['id'];
   // $sql = "SELECT * FROM posts WHERE id = $post_id AND is_deleted = 0";
-  $sql = "SELECT * FROM John_blog_posts WHERE id = $post_id AND is_deleted = 0";
-  $result = mysqli_query($conn, $sql);
+  $sql = "SELECT * FROM John_blog_posts WHERE id = ? AND is_deleted = 0";
+  $stmt = mysqli_prepare($conn, $sql);
+  mysqli_stmt_bind_param($stmt, "i", $post_id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
 
   $post = mysqli_fetch_assoc($result);
 

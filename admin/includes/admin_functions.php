@@ -26,7 +26,7 @@ if (!empty($_GET['delete-topic'])) {
 function getAllTopics() {
   global $conn;
   // $sql = "SELECT * FROM topics";
-  $sql = "SELECT * FROM John_blog_topics";
+  $sql = "SELECT * FROM John_blog_topics WHERE is_deleted = 'N'";
   $result = mysqli_query($conn, $sql);
   $topics = mysqli_fetch_all($result, MYSQLI_ASSOC);
   return $topics;
@@ -87,7 +87,7 @@ function updateTopic($request_values) {
 function deleteTopic($topic_id) {
   global $conn;
   // $sql = "DELETE FROM topics WHERE id = $topic_id";
-  $sql = "DELETE FROM John_blog_topics WHERE id = $topic_id";
+  $sql = "UPDATE John_blog_topics SET is_deleted = 'Y' WHERE id = $topic_id";
   if (mysqli_query($conn, $sql)) {
     $_SESSION['message'] = "已成功刪除該類別";
     header('location: topics.php');

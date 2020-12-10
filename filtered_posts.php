@@ -1,3 +1,9 @@
+<?php 
+      $pattern = "/\/v1-blog-php/i";
+      $location =  preg_replace($pattern, "", $_SERVER['REQUEST_URI']);
+?>
+<?php if (empty($_GET['page-id'])) { header("location: .$location&page=topics_area&page-id=1");}?>
+<?PHP $page_id = (int)$_GET['page-id']?>
 <?php require_once('config.php'); ?>
 <?php require_once( ROOT_PATH . '/includes/public_functions.php')?>
 <?php require_once( ROOT_PATH . '/includes/head_section.php'); ?>
@@ -6,7 +12,16 @@
     $topic_id = $_GET['topic'];
     $posts = getAllPostsByTopic($topic_id);
   }
+  $totalPages = ceil(count($posts) / 5);
 ?>
+<?php
+  if (!empty($_GET['page-id'])) {
+    if ((int)$_GET['page-id'] < 1 || (int)$_GET['page-id'] > $totalPages) {
+      header("location:.$location&page-id=1");
+    }
+  }
+?>
+
   <title>John 的部落格 | 分類專區</title>
 </head>
 <body>
@@ -45,23 +60,15 @@
         </div>
         <?php endforeach ?>
       </div>
-      <div class="row mt-5 text-center">
-          <ul class="col">
-            <li>
-              <a href="#"><</a>
-            </li>
-            <li>
-              <a href="#" class="active">1</a>
-            </li>
-            <li>
-              <a href="#">2</a>
-            </li>
-            <li>
-              <a href="#">></a>
-            </li>
-          </ul>
+      <div class="pages col row flex-center">
+        <div class="prev"><</div>
+        <?php for($i=1; $i<=$totalPages; $i+=1) { ?>
+          <div class="page" data-page=<?php echo $i?>><?php echo $i;?></div>
+        <?php } ?>
+        <div class="next">></div>
       </div>
     </div>
   </section>
   <!-- Footer -->
+  <script src="./static/js/paginator_filter.js"></script>
   <?php include( ROOT_PATH . '/includes/footer.php');?>

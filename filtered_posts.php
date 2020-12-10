@@ -1,5 +1,5 @@
 <?php 
-      $pattern = "/\/v1-blog-php/i";
+      $pattern = "/\/blog/i";
       $location =  preg_replace($pattern, "", $_SERVER['REQUEST_URI']);
 ?>
 <?php if (empty($_GET['page-id'])) { header("location: .$location&page=topics_area&page-id=1");}?>

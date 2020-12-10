@@ -19,7 +19,7 @@
             <div class="topics-card-content">
               <?php foreach ($topics as $topic): ?>
                 <a class="topics-button"
-                  href="<?php echo BASE_URL . 'filtered_posts.php?topic=' . $topic['id'] ?>">
+                  href="<?php echo BASE_URL . 'filtered_posts.php?topic=' . $topic['id'] . '&page=topics_area&page-id=1' ?>">
                   <?php echo $topic['name']; ?>
                 </a> 
               <?php endforeach ?>

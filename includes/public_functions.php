@@ -85,6 +85,33 @@ function getAllPostsByTopic($topic_id) {
   return $final_posts;
 }
 
+function getFilterPostsCount($topic_id) {
+  global $conn;
+  // $sql = "SELECT COUNT(id) AS count FROM posts WHERE is_deleted = 0";
+  $sql = "SELECT COUNT(id) AS count FROM John_blog_posts ps WHERE ps.is_deleted = 0 AND ps.id IN (SELECT pt.post_id FROM John_blog_post_topic pt WHERE pt.topic_id = $topic_id GROUP BY pt.post_id HAVING COUNT(1) = 1)";
+  $result = mysqli_query($conn, $sql);
+  $count = mysqli_fetch_assoc($result);
+
+  return $count['count'];
+}
+
+function getFilterPostsByPageNum($page_id, $topic_id) {
+  global $conn;
+  $offset = ($page_id - 1) * 5;
+  // $sql = "SELECT * FROM posts WHERE is_deleted = 0 ORDER BY id DESC LIMIT 5 OFFSET $offset";
+  $sql = "SELECT * FROM John_blog_posts ps WHERE ps.is_deleted = 0 AND ps.id IN (SELECT pt.post_id FROM John_blog_post_topic pt WHERE pt.topic_id = $topic_id GROUP BY pt.post_id HAVING COUNT(1) = 1) ORDER BY ps.id DESC LIMIT 5 OFFSET $offset";
+  $result = mysqli_query($conn, $sql);
+
+  $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+  $final_posts = array();
+  foreach ($posts as $post) {
+    $post['topic'] = getPostTopic($post['id']);
+    array_push($final_posts, $post);
+  }
+  return $final_posts;
+}
+
 function getTopicNameById($id) {
   global $conn;
   // $sql = "SELECT name FROM topics WHERE id = $id";

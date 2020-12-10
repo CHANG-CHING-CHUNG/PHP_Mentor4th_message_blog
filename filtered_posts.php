@@ -10,17 +10,11 @@
 <?php 
   if (isset($_GET['topic'])) {
     $topic_id = $_GET['topic'];
-    $posts = getAllPostsByTopic($topic_id);
+    $posts = getFilterPostsByPageNum($page_id,$topic_id);
   }
-  $totalPages = ceil(count($posts) / 5);
+  $totalPages = ceil(getFilterPostsCount($topic_id) / 5);
 ?>
-<?php
-  if (!empty($_GET['page-id'])) {
-    if ((int)$_GET['page-id'] < 1 || (int)$_GET['page-id'] > $totalPages) {
-      header("location:.$location&page-id=1");
-    }
-  }
-?>
+
 
   <title>John 的部落格 | 分類專區</title>
 </head>

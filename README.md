@@ -5,7 +5,7 @@
 
 
 ## 後端
-使用 mysqli & mysqli_real_escape_string 存取資料庫
+* 使用 mysqli & mysqli_real_escape_string 存取資料庫
 ```
 function esc(String $value) {
     global $conn;
@@ -27,6 +27,8 @@ function esc(String $value) {
   }
 ```
 上面範例包含了 esc 及 getUser 函式， esc 將傳進來的值做 mysqli_real_escape_string 轉義之後再將轉義後的值傳進 getUser 函式下 query，以防止 SQL Injection。
+* 使用 MySQL 關聯式資料庫，將類別存成一個 TABLE 以及文章存成一個 TABLE，再建立一個 post 對應 topic 的 TABLE  使用類別 id 及 post id 做一對多關聯。
+* 
 ## 使用者登入系統
 * 使用 session 驗證使用者登入。
 * 登入畫面

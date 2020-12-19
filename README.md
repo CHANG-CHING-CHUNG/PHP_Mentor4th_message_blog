@@ -1,5 +1,7 @@
 # PHP 部落格
-* 這是 Lidemy 程式導師計劃第4期的作業
+* 測試帳密:  
+帳號: admin  
+密碼: admin
 * [部落格網址](https://www.mentor4th-john.tw/blog/index.php?page=index)
 ![](https://i.imgur.com/eEinzvy.jpg)
 
